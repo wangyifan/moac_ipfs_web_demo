@@ -12,8 +12,25 @@ const ipfs = ipfsAPI('localhost', '5001', {protocol: 'http'});
 const redisClient = redis.createClient();
 const ipfsFileMappingHash = 'ipfs_file_mapping_hash'
 
+// set view engine
+app.set('view engine', 'hbs');
+
+// simple logging
+app.use((req, res, next) => {
+    const now = new Date().toString();
+    console.log(`${now}: ${req.method} ${req.url}`);
+    next();
+});
+
+// resource
+app.use('/bootstrap', express.static(__dirname + '/node_modules/bootstrap/dist'));
+app.use('/jquery', express.static(__dirname + '/node_modules/jquery/dist/'));
+app.use('/popperjs', express.static(__dirname + '/node_modules/popper.js/dist'));
+
 // add index route
-app.get('/', (req, res) => res.send('moac ipfs web demo'))
+app.get('/', (req, res) => {
+    res.render('index.hbs')
+})
 
 // add upload file route
 app.post('/upload', userUpload.single('add_to_ipfs'), async (req, res) => {
