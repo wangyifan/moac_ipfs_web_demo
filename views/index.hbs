@@ -3,26 +3,44 @@
     <head>
         <!-- Required meta tags -->
         <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <!-- Bootstrap CSS -->
-        <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
-        <title="MOAC IPFS Demo">
+        <link rel="stylesheet" type="text/css" href="/bootstrap/css/bootstrap.min.css">
     </head>
     <body>
-        <h1>MOAC IPFS</h1>
-        </hr>
-        <form action="/upload" method="post" enctype="multipart/form-data">
-            <label for="file">文件名:</label>
-            <input type="file" name="file" id="file" />
-            <br />
-            <input type="submit" name="submit" value="Submit" />
-        </form>
-
-        <!-- Optional JavaScript -->
-        <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-        <script src="/jquery/jquery.slim.min.js" </script>
-        <script src="/popperjs/popper.min.js" </script>
-        <script src="/bootstrap/js/bootstrap.min.js" </script>
+        <nav class="navbar navbar-dark bg-dark navbar-expand-sm fixed-top">
+            <div class="container">
+                <a class="navbar-brand display-3" href="#">MOAC FileStorm</a>
+                <button class="navbar-toggler" data-toggle="collapse" data-target="#navbarNav">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <form class="form-inline ml-auto" action="/upload" method="post" enctype="multipart/form-data">
+                        <div class="form-group">
+                            <div class="custom-file">
+                                <input type="file" id="add_to_ipfs" name="add_to_ipfs" class="custom-file-input ">
+                                <label for="add_to_ipfs" class="custom-file-label">选择文件</label>
+                            </div>
+                        </div>
+                        <div class="form-group ml-3">
+                            <input type="submit" value="上传" name="submit" class="btn btn-primary">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </nav>
+        {{> files}}
+        <script src="/jquery/jquery.slim.min.js"></script>
+        <script src="/popperjs/popper.min.js"></script>
+        <script src="/bootstrap/js/bootstrap.min.js"></script>
+        <script>
+            $('#add_to_ipfs').on('change',function(){
+                //get the file name
+                var fileName = $(this).val();
+                //replace the label
+                $(this).next('.custom-file-label').html(fileName);
+            });
+        </script>
     </body>
 </html>
