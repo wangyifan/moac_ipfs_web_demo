@@ -67,7 +67,8 @@ app.post("/upload", userUpload.single("add_to_ipfs"), async (req, res) => {
     // register with redis
     redisClient.hset(ipfsFileMappingHash, req.file.originalname, fileHash);
     redisClient.lpush(ipfsFileList, JSON.stringify({ name: req.file.originalname, hash: fileHash }));
-    res.send({ message: "success", hash: fileHash, name: req.file.originalname });
+    res.redirect("/");
+    //res.send({ message: "success", hash: fileHash, name: req.file.originalname });
 });
 
 // start server
